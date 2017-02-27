@@ -22,48 +22,44 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package com.sgrillon.blinkstick.java;
 
-public class BlinkstickJava {
+import java.io.IOException;
 
-    public static void main(String[] args) throws InterruptedException {
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-        boolean verbose = false;
-        String feature = null;
-        int speed = 1000;
+public class BlinkstickJavaFeatureUT {
 
-        if (args.length == 0 || args.length == 1 && args[0].equals("-h")) {
-            System.out.println("-h: Display this help");
-            System.out.println("--verbose: Add debug informations in console.");
-            System.out.println("-f: features 1 => Display all colors (16.777.215 of colors)");
-            System.out.println(" 2 => Display 147 colors");
-            System.out.println(" 3 => Display a traffic light sample");
-        }
+    private static BlinkStick blinkStick;
 
-        for (int i = 0; i < args.length; i++) {
-            if ("--verbose".equals(args[i])) {
-                verbose = true;
-            } else if ("-f".equals(args[i])) {
-                feature = args[i + 1];
-            } else if ("-s".equals(args[i])) {
-                speed = Integer.parseInt(args[i + 1]);
-            }
-        }
-
-        BlinkStick device = BlinkStick.findFirst();
-        if (device == null) {
-            System.out.println("BlinkStick Not found...");
-        } else {
-            if ("1".equals(feature)) {
-                BlinkstickJavaFeature.k2000(device, verbose);
-            } else if ("2".equals(feature)) {
-                BlinkstickJavaFeature.displayAllColors(device, speed, verbose);
-            } else if ("3".equals(feature)) {
-                BlinkstickJavaFeature.trafficLight(device, speed, verbose);
-            }
-        }
-        System.exit(1);
+    @Before
+    public void setUp() {
+        blinkStick = BlinkStick.findFirst();
     }
 
+    @After
+    public void tearDown() throws IOException {
+        blinkStick.closeFirst();
+    }
+
+    @Test
+    public void k2000Test() throws InterruptedException {
+        BlinkstickJavaFeature.k2000(blinkStick, false);
+        Assert.assertTrue(true);
+    }
+
+    @Test()
+    public void displayAllColorsTest() throws InterruptedException {
+        BlinkstickJavaFeature.displayAllColors(blinkStick, 500, false);
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    public void trafficLightTest() throws InterruptedException {
+        BlinkstickJavaFeature.trafficLight(blinkStick, 2000, false);
+        Assert.assertTrue(true);
+    }
 }

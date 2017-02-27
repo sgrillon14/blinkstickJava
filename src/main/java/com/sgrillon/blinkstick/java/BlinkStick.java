@@ -1,43 +1,32 @@
-/**
- * ##library.name##
- * ##library.sentence##
- * ##library.url##
- *
- * Copyright ##copyright## ##author##
- * All Rights Reserved.
+/* Copyright (c) 2017 Stéphane GRILLON https://github.com/sgrillon14/blinkstickJava
+ * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     * Neither the name of the <organization> nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  * 
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * 3. The name of the author may not be used to endorse or promote products
- *    derived from this software without specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
- * EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
- * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
- * OF SUCH DAMAGE.
- * 
- * @author      ##author##
- * @modified    ##date##
- * @version     ##library.prettyVersion## (##library.version##)
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package com.sgrillon.blinkstick.java;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,26 +37,11 @@ import com.codeminders.hidapi.HIDDeviceInfo;
 import com.codeminders.hidapi.HIDManager;
 
 /**
- * This is a template class and can be used to start a new processing library or
- * tool. Make sure you rename this class as well as the name of the example
- * package 'template' to your own library or tool naming convention.
- * 
- * @example Hello
- * 
- *          (the tag @example followed by the name of an example included in
- *          folder 'examples' will automatically include the example in the
- *          javadoc.)
- * 
- */
-
-/**
- * @author Arvydas
+ * @author sgrillon14
  *
  */
 public class BlinkStick {
 
-	public final static String VERSION = "##library.prettyVersion##";
-	
 	private static Boolean Initialized = false;
 
 	protected static final HashMap<String, String> COLORS = new HashMap<String, String>() {
@@ -242,15 +216,6 @@ public class BlinkStick {
 	 */
 	private HIDDevice device = null;
 
-	/**
-	 * return the version of the library.
-	 * 
-	 * @return String
-	 */
-	public static String version() {
-		return VERSION;
-	}
-
 	/** 
 	 * Assign HIDDevice
 	 * 
@@ -259,8 +224,8 @@ public class BlinkStick {
 	private void setDevice(HIDDevice device) {
 		this.device = device;
 	}
-
-	/** 
+	
+    /** 
 	 * Load hidapi library based on the OS. This function is automatically called whenever 
 	 * a search for BlinkStick is performed for the first time.
 	 */
@@ -293,6 +258,13 @@ public class BlinkStick {
 		}
 		return null;
 	}
+	
+	public void closeFirst() {
+	    try {
+            this.device.close();
+        } catch (IOException e) {
+        }
+    }
 
 	/** Find BlinkStick by serial number
 	 * 
@@ -318,7 +290,7 @@ public class BlinkStick {
 
 		return null;
 	}
-
+	
 	/** 
 	 * Find all BlinkStick HIDDeviceInfo descriptions connected to the computer
 	 * 
@@ -433,8 +405,8 @@ public class BlinkStick {
 	 * @param value	color as int
 	 */
 	public void setIndexedColor(int channel, int index, int value) {
-        int r = (value >> 16) & 0xFF;
-        int g = (value >> 8)  & 0xFF;
+        int r = value >> 16 & 0xFF;
+        int g = value >> 8  & 0xFF;
         int b =  value        & 0xFF;
         
         this.setIndexedColor(channel, index, r, g, b);
@@ -447,8 +419,8 @@ public class BlinkStick {
 	 * @param value	color as int
 	 */
 	public void setIndexedColor(int index, int value) {
-        int r = (value >> 16) & 0xFF;
-        int g = (value >> 8)  & 0xFF;
+        int r = value >> 16 & 0xFF;
+        int g = value >> 8  & 0xFF;
         int b =  value        & 0xFF;
         
         this.setIndexedColor(0, index, r, g, b);
@@ -460,8 +432,8 @@ public class BlinkStick {
 	 * @param value	color as int
 	 */
 	public void setColor(int value) {
-        int r = (value >> 16) & 0xFF;
-        int g = (value >> 8)  & 0xFF;
+        int r = value >> 16 & 0xFF;
+        int g = value >> 8  & 0xFF;
         int b =  value        & 0xFF;
         
         this.setColor(r, g, b);
@@ -512,7 +484,7 @@ public class BlinkStick {
 		int green = Integer.valueOf(colorStr.substring(3, 5), 16) + 0;
 		int blue  = Integer.valueOf(colorStr.substring(5, 7), 16) + 0;
 
-		return (255 << 24) | (red << 16) | (green << 8) | blue;
+		return 255 << 24 | red << 16 | green << 8 | blue;
 	}
 	
 	/** 
@@ -527,7 +499,7 @@ public class BlinkStick {
 		try {
 			int read = device.getFeatureReport(data);
 			if (read > 0) {
-				return (255 << 24) | (data[1] << 16) | (data[2] << 8) | data[3];
+				return 255 << 24 | data[1] << 16 | data[2] << 8 | data[3];
 			}
 		} catch (Exception e) {
 		}
@@ -543,8 +515,8 @@ public class BlinkStick {
 	public String getColorString() {
 		int c = getColor();
 		
-		int red   = (c >> 16) & 0xFF;
-		int green = (c >> 8)  & 0xFF;
+		int red   = c >> 16 & 0xFF;
+		int green = c >> 8  & 0xFF;
 		int blue  =  c        & 0xFF;
 		
 		return "#" + String.format("%02X", red)
