@@ -24,3 +24,5 @@ API:
                  2 => Display 147 colors
              
                  3 => Display a traffic light sample
+
+![demo](blinkstick-square-enclosure-240.gif)
