@@ -21,7 +21,7 @@
         <connection>scm:git:git://github.com/sgrillon14/blinkstickJava.git</connection>
         <developerConnection>scm:git:git@github.com:sgrillon14/blinkstickJava.git</developerConnection>
         <url>git://github.com/sgrillon14/blinkstickJava.git</url>
-        <tag>v1.0.1</tag>
+        <tag>v1.0.2</tag>
     </scm>
 
     <licenses>
