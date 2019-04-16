@@ -24,7 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.sgrillon.blinkstick.java;
+package com.github.sgrillon14.blinkstick.java;
 
 import java.io.IOException;
 import java.util.ArrayList;

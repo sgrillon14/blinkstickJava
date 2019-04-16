@@ -26,3 +26,6 @@ API:
                  3 => Display a traffic light sample
 
 ![demo](blinkstick-square-enclosure-240.gif)
+
+# Continuous Integration status
+[![Build Status](https://travis-ci.org/sgrillon14/blinkstickJava.svg?branch=master)](https://travis-ci.org/sgrillon14/blinkstickJava)

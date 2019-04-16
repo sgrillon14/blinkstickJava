@@ -31,6 +31,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.sgrillon14.blinkstick.java.BlinkStick;
+import com.github.sgrillon14.blinkstick.java.BlinkstickJavaFeature;
+
 public class BlinkstickJavaFeatureUT {
 
     private static BlinkStick blinkStick;

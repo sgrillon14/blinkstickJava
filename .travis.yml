@@ -1,0 +1,15 @@
+language: java
+sudo: required
+dist: trusty
+install: true
+
+addons:
+  sonarcloud:
+    organization: "sgrillon14"
+
+jdk:
+- oraclejdk8
+
+cache:
+  directories:
+    - $HOME/.m2/repository
