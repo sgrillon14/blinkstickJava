@@ -1,7 +1,7 @@
 # blinkstickJava
 JAVA API for BlinkStick
 
-[BlinkStick](www.blinkstick.com) is a USB-controlled smart pixel. It is
+[BlinkStick](http://www.blinkstick.com) is a USB-controlled smart pixel. It is
 available either as a kit or ready-soldered.
 
 This is a Java API for working with a BlinkStick.
